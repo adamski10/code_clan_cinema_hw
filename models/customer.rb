@@ -41,7 +41,8 @@ class Customer
 
   def update()
     sql = "
-    UPDATE customers SET
+    UPDATE customers 
+    SET
     (
       name,
       funds
@@ -54,13 +55,13 @@ class Customer
     SqlRunner.run(sql, values)
   end
 
-  def film()
+  def films()
     sql = "
     SELECT films.* 
     FROM films
     INNER JOIN tickets
     ON tickets.film_id = films.id
-    WHERE customer_id = $1;"
+    WHERE tickets.customer_id = $1;"
     values = [@id]
     films = SqlRunner.run(sql, values)
     results = films.map { |film| Film.new(film) }
